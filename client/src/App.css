@@ -1,0 +1,362 @@
+*{
+  box-sizing: border-box;
+}
+a{
+  cursor: pointer;
+}
+body {
+  color: #222;
+  margin: 0;
+}
+main {
+  padding: 10px;
+  max-width: 1168px;
+  margin: 0 auto;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 50px;
+}
+header a {
+  text-decoration: none;
+  color: inherit;
+}
+header a.logo {
+  font-weight: bold;
+  font-size: 26px;
+}
+header nav {
+  display: flex;
+  gap: 15px;
+}
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr) ;
+  gap: 15px;
+
+}
+
+.blog-card {
+  background-color: #F5F6FA;
+  border-radius: 12px;
+  /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); */
+  overflow: hidden;
+  border: 1px solid #c2c9d666;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+@media(max-width: 768px) {
+  .blog-grid {
+    grid-template-columns: 1fr;
+  }
+  .post-page .post-content {
+    padding: 10px;
+  }
+}
+
+.blog-card:hover {
+  background-color: white;
+}
+
+.blog-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.blog-content {
+   padding: 8px 32px 8px 16px;
+}
+
+.blog-content p {
+  font-size: 12px;
+  color: #333;
+}
+
+.blog-content h2 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin: 8px 0;
+}
+
+.blog-content a {
+  text-decoration: none;
+  color: inherit
+}
+
+.blog-content div {
+  font-size: 14px;
+  color: #333;
+  line-height: 1.6;
+}
+
+.blog-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.author img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.author-name {
+  font-size: 13px;
+  color: #444;
+  font-weight: 500;
+}
+
+.date {
+  font-size: 13px;
+  color: #444;
+  font-weight: 500;
+}
+
+.login, .register {
+  border: 1px solid #c2c9d666;
+  border-radius: 12px;
+  background-color: #F5F6FA;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-container{
+  width: 450px;
+  padding-bottom: 30px;
+}
+
+input{
+  display: block;
+  margin-bottom: 10px;
+  width: 100%;
+  height: 2.5rem;
+  padding: 5px 7px;
+  border: 1px solid #c2c9d666;
+  border-radius: 12px;
+  background-color: white;
+  font-size: 0.8rem;
+}
+
+button {
+  width: 100%;
+  height: 2.5rem;
+  display: block;
+  border-radius: 12px;
+  background-color: #333;
+  color: white;
+  padding: 5px 7px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: ease 0.2s;
+}
+
+
+
+form.login h1, form.register h1 {
+  text-align: center;
+}
+
+/* Form Container */
+.post-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 1168px;
+  padding: 12px;
+  background-color: #F5F6FA;
+  border-radius: 12px;
+  border: 1px solid #c2c9d666;
+}
+
+/* Input Fields & Select */
+.post-form input,
+.post-form select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: 0.3s ease;
+}
+
+/* Input Focus Effect */
+.post-form input:focus,
+.post-form select:focus {
+  border-color: #555;
+  outline: none;
+}
+
+/* Dropdown Styling */
+.post-form select {
+  background-color: white;
+  color: #333;
+  cursor: pointer;
+}
+
+/* File Input Styling */
+.post-form input[type="file"] {
+  border: none;
+  background-color: #F5F6FA;
+  padding: 10px;
+  cursor: pointer;
+}
+
+/* File Input Hover Effect */
+.post-form input[type="file"]:hover {
+  background-color: #fff;
+}
+
+/* ReactQuill Editor */
+.post-form .ql-container {
+  min-height: 400px;
+  font-size: 16px;
+  background: white;
+}
+
+/* Submit Button */
+.post-form button {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.post-form button:hover {
+  background-color: #555;
+}
+
+/* Post Page Container */
+.post-page {
+  max-width: 100%;
+  background: #F5F6FA; /* Light background */
+  border-radius: 12px;
+  padding-bottom: 10px;
+  border: 1px solid #c2c9d666;
+}
+
+.post-page:hover{
+  background-color: #fff;
+}
+
+/* Image Section */
+.post-page .image {
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  max-height: 450px;
+  display: flex;
+  overflow: hidden;
+}
+
+.post-page img {
+  width: 100%;
+  max-height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.post-page .post-content {
+  padding: 20px;
+}
+
+/* Category Styling */
+.post-page p {
+  color: #555;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Title Styling */
+.post-page h1 {
+  font-size: 32px;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 1px;
+  font-family: "Lora", serif;
+}
+
+.post-page .post-meta {
+  font-size: 14px;
+  color: #777;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+
+/* Content Styling */
+.post-page div {
+  font-size: 16px;
+  color: #333;
+}
+
+.post-page div p {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.6;
+  text-align: justify;
+}
+
+.post-page a {
+  color: #333;
+  text-decoration: underline;
+}
+
+.post-page a:hover {
+  color: #005a8d;
+}
+
+.btn-row {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn-row .btn{
+  background-color: #333;
+  color: #fff;
+  padding: 8px 10px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid #c2c9d666;
+  transition: ease 0.2s;
+}
+
+.btn-row .btn:hover{
+  background-color: #fff;
+  color: #333;
+
+}
+
+.btn-row a {
+  text-decoration: none;
+  font-size: 16px;
+}
+
+a svg {
+  height: 20px;
+}
