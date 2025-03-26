@@ -20,7 +20,7 @@ function CreatePost() {
     data.append("image", imgFile);
 
     try {
-      const response = await axios.post("http://localhost:5000/post", data, {
+      const response = await axios.post("https://blog-app-backend-wiia.onrender.com/post", data, {
         headers: {"Content-Type": "multipart/form-data"}, // Required for file upload
         withCredentials: true
       });

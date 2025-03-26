@@ -14,7 +14,7 @@ function Register() {
         event.preventDefault();
         setError("");
         try {
-            await axios.post("http://localhost:5000/register", {firstName, lastName, email, password});
+            await axios.post("https://blog-app-backend-wiia.onrender.com/register", {firstName, lastName, email, password});
             alert("Registration successful.");
             setRedirect(true); 
         } catch (error) {

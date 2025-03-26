@@ -14,7 +14,7 @@ function Login() {
         event.preventDefault();
         setError("");
         try {
-            const result = await axios.post("http://localhost:5000/login", {email, password}, {withCredentials: true});
+            const result = await axios.post("https://blog-app-backend-wiia.onrender.com/login", {email, password}, {withCredentials: true});
             if (result.data) {              
                 setUserInfo(result.data);
                 setRedirect(true);       

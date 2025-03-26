@@ -7,7 +7,7 @@ function Home() {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await axios.get("http://localhost:5000/post");
+      const response = await axios.get("https://blog-app-backend-wiia.onrender.com/post");
       setPosts(response.data);
     }
     fetchPosts();
@@ -20,7 +20,7 @@ function Home() {
           <Post 
             key={post.id} 
             id={post.id}
-            image={`http://localhost:5000/${post.image}`} // ✅ Make sure this matches the backend response
+            image={`https://blog-app-backend-wiia.onrender.com/${post.image}`} // ✅ Make sure this matches the backend response
             category={post.category}
             title={post.title}
             content={post.content}

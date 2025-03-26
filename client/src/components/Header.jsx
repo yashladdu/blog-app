@@ -8,7 +8,7 @@ function Header() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const result = await axios.get("http://localhost:5000/profile", {withCredentials: true});
+        const result = await axios.get("https://blog-app-backend-wiia.onrender.com/profile", {withCredentials: true});
         const userInfo = result.data;
         if (userInfo) {
           setUserInfo(userInfo);
@@ -23,7 +23,7 @@ function Header() {
   }, []);
 
   async function logout() {
-    await axios.post("http://localhost:5000/logout", {}, {withCredentials: true});
+    await axios.post("https://blog-app-backend-wiia.onrender.com/logout", {}, {withCredentials: true});
     setUserInfo(null);
     <Navigate to={"/"} />
   }

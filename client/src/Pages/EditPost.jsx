@@ -14,7 +14,7 @@ function EditPost() {
 
     useEffect(() => {
       const fetchPost = async () => {
-        const response = await axios.get(`http://localhost:5000/post/${id}`);
+        const response = await axios.get(`https://blog-app-backend-wiia.onrender.com/post/${id}`);
         const post = response.data;
         setCategory(post.category);
         setTitle(post.title);
@@ -35,7 +35,7 @@ function EditPost() {
         data.append("image", imgFile?.[0]);
       } 
       
-      const response = await axios.put(`http://localhost:5000/post/${id}`, data, {
+      const response = await axios.put(`https://blog-app-backend-wiia.onrender.com/post/${id}`, data, {
         headers: {"Content-Type": "multipart/form-data"},
         withCredentials: true, 
       });

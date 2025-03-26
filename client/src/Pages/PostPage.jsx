@@ -11,14 +11,14 @@ function PostPage() {
   const {id} = useParams();
   useEffect(() => {
     const fetchPost = async () => {
-      const response = await axios.get(`http://localhost:5000/post/${id}`);
+      const response = await axios.get(`https://blog-app-backend-wiia.onrender.com/${id}`);
       setPostInfo(response.data);
     }
     fetchPost();
   }, []);
 
   async function deletePost()  {
-    const response = await axios.delete(`http://localhost:5000/post/${id}`);
+    const response = await axios.delete(`https://blog-app-backend-wiia.onrender.com/${id}`);
     console.log(response);
     alert("Post deleted successfully");
     setRedirect(true);
