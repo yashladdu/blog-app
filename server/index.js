@@ -35,6 +35,7 @@ app.use("/uploads", express.static("uploads"));
 
 const verifyToken = (req, res, next) => {
     const token = req.cookies.token; // Get token from HTTP-only cookie
+    console.log(token);
 
     if (!token) {
         return res.status(401).json({ error: "Unauthorized: No token provided" });
