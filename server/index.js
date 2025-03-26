@@ -91,8 +91,11 @@ app.post("/login", async (req, res) => {
                     if (result) {
                         jwt.sign({email: user.rows[0].email, id:user.rows[0].id}, secret, {}, (err, token) => {
                             if (err) throw err;
-                            res.cookie("token", token).json({email: user.rows[0].email, id:user.rows[0].id});
-                            console.log(token);
+                            res.cookie("token", token, {
+                                httpOnly: true,
+                                secure: true,   // Ensures cookie is only sent over HTTPS
+                                sameSite: "None" // Allows cross-site requests
+                            }).json({email: user.rows[0].email, id:user.rows[0].id});
                         }); 
                         console.log("Logged in");
                     } else {
@@ -124,7 +127,12 @@ app.get("/profile", (req, res) => {
 })
 
 app.post("/logout", (req, res) => {
-    res.cookie("token", "").json("ok");
+    res.cookie("token", "", {
+        httpOnly: true,
+        secure: true,
+        sameSite: "None",
+        expires: new Date(0) // Expire the cookie immediately
+    }).json("ok");
 });
 
 app.post("/post", verifyToken, uploadMiddleware.single("image"), async (req, res) => {
@@ -223,6 +231,8 @@ app.delete("/post/:id", async (req, res) => {
     `, [id]);
     res.json({message: "Post deleted successfully"})
 });
+
+app.set("trust proxy", 1);
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
