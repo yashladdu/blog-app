@@ -28,7 +28,7 @@ db.connect();
 
 const uploadMiddleware = multer({ dest: 'uploads' })
 
-app.use(cors({credentials:true, origin:"http://localhost:3000"}));
+app.use(cors({credentials:true, origin:"https://blog-app-ol9y.onrender.com"}));
 app.use(express.json());
 app.use(cookieParser());
 app.use("/uploads", express.static("uploads"));
