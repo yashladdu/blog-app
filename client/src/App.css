@@ -143,6 +143,12 @@ header nav {
   padding-bottom: 30px;
 }
 
+@media (max-width: 600px) {
+  .form-container{
+    width: 350px;
+  }
+}
+
 input{
   display: block;
   margin-bottom: 10px;
