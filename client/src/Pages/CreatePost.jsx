@@ -15,7 +15,6 @@ function CreatePost() {
     if (!file) return;
 
     try {
-      setUploading(prev => ({ ...prev, [resourceType]: true }));
       // Get Cloudinary upload signature
       const signatureRes = await axios.get("https://video-chapters.onrender.com/api/cloudinary-signature");
       const {timestamp, signature, cloud_name, api_key} = signatureRes.data;
