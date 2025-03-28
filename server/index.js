@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
 import fs from "fs";
 import dotenv from "dotenv";
+import {generateUploadSignature} from "./cloudinary";
 
 const app = express();
 dotenv.config();
