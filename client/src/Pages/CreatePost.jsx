@@ -40,13 +40,7 @@ function CreatePost() {
 
   async function createNewPost(event) {
     event.preventDefault();
-
-    const data = new FormData();
-    data.append("category", category);
-    data.append("title", title);
-    data.append("content", content);
-    data.append("image", imgFile);
-
+    
     try {
       const response = await axios.post("https://blog-app-backend-wiia.onrender.com/post", {category, title, content, imgUrl}, {
           withCredentials: true
