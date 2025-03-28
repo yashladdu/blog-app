@@ -32,7 +32,7 @@ function PostPage() {
   return (
     <div className='post-page'>
       <div className='image'>
-        <img src={`https://blog-app-backend-wiia.onrender.com/${postInfo.image}`} alt="post image" />
+        <img src={postInfo.image} alt="post image" />
       </div>
       <div className="post-content">
         {/* <p>{postInfo.category}</p> */}

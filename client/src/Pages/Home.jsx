@@ -20,7 +20,7 @@ function Home() {
           <Post 
             key={post.id} 
             id={post.id}
-            image={`https://blog-app-backend-wiia.onrender.com/${post.image}`} // ✅ Make sure this matches the backend response
+            image={post.image}
             category={post.category}
             title={post.title}
             content={post.content}
