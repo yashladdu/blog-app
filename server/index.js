@@ -4,7 +4,6 @@ import pg from "pg";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
-import multer from "multer";
 import fs from "fs";
 import dotenv from "dotenv";
 
@@ -26,12 +25,11 @@ const db = new pg.Client({
 });
 db.connect();
 
-const uploadMiddleware = multer({ dest: 'uploads' })
 
 app.use(cors({credentials:true, origin:"https://blog-app-ol9y.onrender.com"}));
 app.use(express.json());
 app.use(cookieParser());
-app.use("/uploads", express.static("uploads"));
+
 
 const verifyToken = (req, res, next) => {
     const token = req.cookies.token; // Get token from HTTP-only cookie
@@ -49,6 +47,8 @@ const verifyToken = (req, res, next) => {
         next();
     });
 };
+
+app.get("/api/cloudinary-signature", generateUploadSignature);
 
 //Create a new user
 app.post("/register", async (req, res) => {
@@ -135,20 +135,14 @@ app.post("/logout", (req, res) => {
     }).json("ok");
 });
 
-app.post("/post", verifyToken, uploadMiddleware.single("image"), async (req, res) => {
-    const {originalname, path} = req.file;
-    const imgName = originalname.split(".");
-    const imgExt = imgName[imgName.length - 1];
-    const newPath = path+"."+imgExt;
-    fs.renameSync(path, newPath);
-
-    const {title, category, content} = req.body;
+app.post("/post", verifyToken, async (req, res) => {
+    const {title, category, content, imgUrl} = req.body;
     const user_id = req.user.id;
     
     try {
         const result = await db.query(
             "INSERT INTO posts (image, category, title, content, user_id) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-            [newPath, category, title, content, user_id]);
+            [imgUrl, category, title, content, user_id]);
             res.json({ message: "Post created!", post: result.rows[0] });
     } catch (error) {
         console.error("Error saving post:", error);
@@ -156,9 +150,9 @@ app.post("/post", verifyToken, uploadMiddleware.single("image"), async (req, res
     }
 });
 
-app.put("/post/:id", verifyToken, uploadMiddleware.single("image"), async (req, res) => {  
+app.put("/post/:id", verifyToken, async (req, res) => {  
     const {id} = req.params;
-    const {title, category, content} = req.body;
+    const {title, category, content, imgUrl} = req.body;
     const user_id = req.user.id;
 
     try {
@@ -176,10 +170,7 @@ app.put("/post/:id", verifyToken, uploadMiddleware.single("image"), async (req, 
 
         // ✅ Only update image if a new file is uploaded
         if (req.file) {
-            const { originalname, path } = req.file;
-            const imgExt = originalname.split(".").pop();
-            imageToUse = `${path}.${imgExt}`;
-            fs.renameSync(path, imageToUse);
+         imageToUse = imgUrl;      
         }
 
        const updatedPost = await db.query(`

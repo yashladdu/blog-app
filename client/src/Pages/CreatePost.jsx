@@ -8,7 +8,36 @@ function CreatePost() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [imgFile, setImgFile] = useState(null);
+  const [imgUrl, setImgUrl] = useState("");
   const [redirect, setRedirect] = useState(false);
+
+  const uploadToCloudinary = async (file, resourceType) => {
+    if (!file) return;
+
+    try {
+      setUploading(prev => ({ ...prev, [resourceType]: true }));
+      // Get Cloudinary upload signature
+      const signatureRes = await axios.get("https://video-chapters.onrender.com/api/cloudinary-signature");
+      const {timestamp, signature, cloud_name, api_key} = signatureRes.data;
+
+      // Prepare FormData for Cloudinary API
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("api_key", api_key);
+      formData.append("timestamp", timestamp);
+      formData.append("signature", signature);
+      formData.append("resource_type", resourceType);
+      formData.append("upload_preset", "ml_default");
+
+      // Upload file to Cloudinary
+      const cloudinaryRes = await axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/upload`, formData);
+
+      if (resourceType === "image") setImgUrl(cloudinaryRes.data.secure_url);
+
+    } catch (error) {
+      console.error("Cloudinary upload error:", error);
+    }
+  }
 
   async function createNewPost(event) {
     event.preventDefault();
@@ -20,9 +49,8 @@ function CreatePost() {
     data.append("image", imgFile);
 
     try {
-      const response = await axios.post("https://blog-app-backend-wiia.onrender.com/post", data, {
-        headers: {"Content-Type": "multipart/form-data"}, // Required for file upload
-        withCredentials: true
+      const response = await axios.post("https://blog-app-backend-wiia.onrender.com/post", {category, title, content, imgUrl}, {
+          withCredentials: true
       });
       if (response.data) {
         setRedirect(true);
@@ -52,7 +80,7 @@ function CreatePost() {
 
         <input type="text" placeholder="Title" value={title} onChange={event => setTitle(event.target.value)} required />
 
-        <input type="file" accept='image/*' onChange={event => setImgFile(event.target.files[0])} required />
+        <input type="file" accept='image/*' onChange={(e) => uploadToCloudinary(e.target.files[0], "image")} required />
 
         <Editor className="ql-container" value={content} onChange={setContent} />
 
